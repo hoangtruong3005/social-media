@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { FBAuth } = require("../middlewares/scream.middleware");
 
 const {
   getScreams,
@@ -10,6 +11,6 @@ const {
 router.get("/", getScreams);
 
 // POST method
-router.post("/scream", createScream);
+router.post("/scream", FBAuth, createScream);
 
 module.exports = router;

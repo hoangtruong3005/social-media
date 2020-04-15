@@ -9,7 +9,7 @@ module.exports.FBAuth = (req, res, next) => {
     idToken = req.headers.authorization.split("Bearer ")[1];
   } else {
     console.error("No token found");
-    return res.status(403).json({ error: "Unauthorized" });
+    return res.status(403).json({ error: "unauthorized" });
   }
 
   return admin
@@ -17,7 +17,8 @@ module.exports.FBAuth = (req, res, next) => {
     .verifyIdToken(idToken)
     .then((decodedToken) => {
       req.user = decodedToken;
-      return db
+      return admin
+        .firestore()
         .collection("users")
         .where("userId", "==", req.user.uid)
         .limit(1)
