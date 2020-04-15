@@ -1,8 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const controller = require("../controllers/scream.controller");
+const {
+  getScreams,
+  createScream,
+} = require("../controllers/scream.controller");
 
-router.get("/", controller.getScreams);
+// GET method
+router.get("/", getScreams);
+
+// POST method
+router.post("/scream", createScream);
 
 module.exports = router;
